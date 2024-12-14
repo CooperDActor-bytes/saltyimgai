@@ -20,18 +20,23 @@ jobs:
       run: |
         git lfs install  # Install Git LFS on the runner
 
-    # Step 3: Download the model file (optional, if you're downloading a file from a URL)
+    # Step 3: Create the directory for the model file (if it doesn't exist)
+    - name: Create model_data directory
+      run: |
+        mkdir -p model_data
+
+    # Step 4: Download the model file
     - name: Download Stable Diffusion Model Checkpoint
       run: |
         wget -O model_data/sd-v1-4.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
 
-    # Step 4: Configure Git
+    # Step 5: Configure Git
     - name: Configure Git
       run: |
         git config --global user.name "SaltyBot"
         git config --global user.email "actions@github.com"
 
-    # Step 5: Commit the model file using Git LFS
+    # Step 6: Commit the model file using Git LFS
     - name: Commit and push model file with Git LFS
       run: |
         git add model_data/sd-v1-4.ckpt
