@@ -26,7 +26,7 @@ jobs:
     - name: Commit and Push Model File
       run: |
         git config --global user.name "SaltyBot"
-        git config --global user.email "actions@github.com"
+        git config --global user.email "bots@salty.cool"
         git add model_data/sd-v1-4.ckpt
         git commit -m "Add stable diffusion model checkpoint"
         git push
