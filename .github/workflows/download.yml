@@ -1,0 +1,4 @@
+- name: Download Stable Diffusion Model Checkpoint
+  run: |
+    mkdir -p model_data
+    wget -O model_data/sd-v1-4.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
