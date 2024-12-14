@@ -1,4 +1,24 @@
-- name: Download Stable Diffusion Model Checkpoint
-  run: |
-    mkdir -p model_data
-    wget -O model_data/sd-v1-4.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+name: Download Stable Diffusion Model Checkpoint
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on PR to the main branch
+
+jobs:
+  download:
+    runs-on: ubuntu-latest  # Use Ubuntu for the job
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checkout the repository code
+
+    - name: Create model_data directory
+      run: mkdir -p model_data  # Create model_data directory
+
+    - name: Download Stable Diffusion Model Checkpoint
+      run: |
+        wget -O model_data/sd-v1-4.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
