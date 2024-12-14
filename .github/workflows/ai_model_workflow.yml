@@ -1,0 +1,43 @@
+name: Run AI Model (Stable Diffusion)
+
+on:
+  workflow_run:
+    workflows: ["Run Stable Diffusion from Main Repo"]  # This is the name of the workflow in the Main Repo
+    types:
+      - completed
+
+jobs:
+  run-ai-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout AI Model Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Install your dependencies, if any
+
+      - name: Run Stable Diffusion model
+        run: |
+          python run_stable_diffusion.py  # Run your AI model
+
+      - name: Upload generated image
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated_image
+          path: generated_image.png  # Path to the image
+
+      - name: Commit the generated image to the repo
+        run: |
+          git config --global user.name "SaltyBot[bot]"
+          git config --global user.email "bots@salty.cool"
+          git add generated_image.png
+          git commit -m "Add generated image"
+          git push
