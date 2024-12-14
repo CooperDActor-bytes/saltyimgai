@@ -22,3 +22,14 @@ jobs:
     - name: Download Stable Diffusion Model Checkpoint
       run: |
         wget -O model_data/sd-v1-4.ckpt https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt
+
+    - name: Commit and Push Model File
+      run: |
+        git config --global user.name "SaltyBot"
+        git config --global user.email "bots@salty.cool"
+        git add model_data/sd-v1-4.ckpt
+        git commit -m "Add stable diffusion model checkpoint"
+        git push
+      env:
+        # Set the GITHUB_TOKEN to allow pushing back to the repository
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
